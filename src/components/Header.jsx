@@ -1,12 +1,43 @@
 import React from "react";
 import { icons } from "react-icons";
 import { MdAddShoppingCart } from "react-icons/md";
+import { motion } from "framer-motion";
+
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { app } from "../firebase.config";
+
 import Logo from "./img/logo.png";
 import Avatar from "./img/avatar.png";
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 function Header() {
+  const provider = new GoogleAuthProvider();
+  const auth = getAuth(app);
+
+  const login = async () => {
+    await signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+        console.log(result);
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+  };
+
   return (
     <header className="fixed z-50 w-screen p-6 px-16">
       {/* Desktop and tab screen */}
@@ -32,7 +63,9 @@ function Header() {
             </div>
           </div>
 
-          <motion.img whileTap={{ scale: 0.8 }} src={Avatar} alt="Avatar" className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl cursor-pointer" />
+          <div className="relative">
+            <motion.img whileTap={{ scale: 0.8 }} src={Avatar} alt="Avatar" className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl cursor-pointer" onClick={login} />
+          </div>
         </div>
       </div>
       {/* mobile screen */}
