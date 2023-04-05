@@ -1,7 +1,8 @@
 import React from "react";
 import { icons } from "react-icons";
-import { MdAddShoppingCart } from "react-icons/md";
+import { MdAddShoppingCart, MdAdd, MdLogout } from "react-icons/md";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { app } from "../firebase.config";
@@ -16,38 +17,21 @@ function Header() {
   const provider = new GoogleAuthProvider();
   const auth = getAuth(app);
   const [{ user }, dispatch] = useStateValue();
+  const [isMenu, setIsMenu] = useState(false);
 
   const login = async () => {
-    const {
-      user: { refreshToken, providerData },
-    } = await signInWithPopup(auth, provider);
-    dispatch({
-      type: actionType.SET_USER,
-      user: providerData[0],
-    });
-
-    localStorage.setItem("user", JSON.stringify(providerData[0]));
-
-    //   .then((result) => {
-    //     // This gives you a Google Access Token. You can use it to access the Google API.
-    //     const credential = GoogleAuthProvider.credentialFromResult(result);
-    //     const token = credential.accessToken;
-    //     // The signed-in user info.
-    //     const user = result.user;
-    //     // IdP data available using getAdditionalUserInfo(result)
-    //     // ...
-    //     console.log(user);
-    //   })
-    //   .catch((error) => {
-    //     // Handle Errors here.
-    //     const errorCode = error.code;
-    //     const errorMessage = error.message;
-    //     // The email of the user's account used.
-    //     const email = error.customData.email;
-    //     // The AuthCredential type that was used.
-    //     const credential = GoogleAuthProvider.credentialFromError(error);
-    //     // ...
-    //   });
+    if (!user) {
+      const {
+        user: { refreshToken, providerData },
+      } = await signInWithPopup(auth, provider);
+      dispatch({
+        type: actionType.SET_USER,
+        user: providerData[0],
+      });
+      localStorage.setItem("user", JSON.stringify(providerData[0]));
+    } else {
+      setIsMenu(!isMenu);
+    }
   };
 
   return (
@@ -77,6 +61,23 @@ function Header() {
 
           <div className="relative">
             <motion.img whileTap={{ scale: 0.8 }} src={user ? user.photoURL : Avatar} alt="Avatar" className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl cursor-pointer rounded-full" onClick={login} />
+
+            {isMenu && (
+              <motion.div initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.6 }} className="w-40 bg-gray-50 shadow-xl rounded-lg flex flex-col absolute top-12 right-0  ">
+                {user && user.email === "s.swapnil80@gmail.com" && (
+                  <Link to={"/createItem"}>
+                    <p className="px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-200 transition-all duration-100 ease-in-out text-textColor text-base">
+                      New Item <MdAdd />
+                    </p>
+                  </Link>
+                )}
+
+                <p className="px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-200 transition-all duration-100 ease-in-out text-textColor text-base">
+                  LogOut
+                  <MdLogout />
+                </p>
+              </motion.div>
+            )}
           </div>
         </div>
       </div>
