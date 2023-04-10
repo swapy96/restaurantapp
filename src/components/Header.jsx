@@ -16,7 +16,7 @@ import { actionType } from "../context/reducer";
 function Header() {
   const provider = new GoogleAuthProvider();
   const auth = getAuth(app);
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user, cartShow }, dispatch] = useStateValue();
   const [isMenu, setIsMenu] = useState(false);
 
   const login = async () => {
@@ -40,6 +40,13 @@ function Header() {
     dispatch({
       type: actionType.SET_USER,
       user: null,
+    });
+  };
+
+  const showCart = () => {
+    dispatch({
+      type: actionType.SET_CART_SHOW,
+      cartShow: !cartShow,
     });
   };
 
@@ -68,7 +75,7 @@ function Header() {
             </li>
           </motion.ul>
 
-          <div className="relative flex justify-center items-center">
+          <div className="relative flex justify-center items-center" onClick={showCart}>
             {/* shopping cart added */}
             <MdAddShoppingCart className="text-textColor text-2xl ml-8 cursor-pointer" />
             <div className="absolute -top-3 -right-0.5 w-5 h-5 rounded-full bg-cartNumBg flex justify-center items-center">
@@ -100,7 +107,7 @@ function Header() {
       </div>
       {/* mobile screen */}
       <div className="flex items-center justify-between md:hidden w-full h-full">
-        <div className="relative flex justify-center items-center">
+        <div className="relative flex justify-center items-center" onClick={showCart}>
           {/* shopping cart added */}
           <MdAddShoppingCart className="text-textColor text-2xl ml-8 cursor-pointer" />
           <div className="absolute -top-3 -right-0.5 w-5 h-5 rounded-full bg-cartNumBg flex justify-center items-center">
