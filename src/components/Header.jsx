@@ -16,7 +16,7 @@ import { actionType } from "../context/reducer";
 function Header() {
   const provider = new GoogleAuthProvider();
   const auth = getAuth(app);
-  const [{ user, cartShow }, dispatch] = useStateValue();
+  const [{ user, cartShow, cartItems }, dispatch] = useStateValue();
   const [isMenu, setIsMenu] = useState(false);
 
   const login = async () => {
@@ -78,9 +78,11 @@ function Header() {
           <div className="relative flex justify-center items-center" onClick={showCart}>
             {/* shopping cart added */}
             <MdAddShoppingCart className="text-textColor text-2xl ml-8 cursor-pointer" />
-            <div className="absolute -top-3 -right-0.5 w-5 h-5 rounded-full bg-cartNumBg flex justify-center items-center">
-              <p className="text-xs text-white font-semibold">2</p>
-            </div>
+            {cartItems && cartItems.length > 0 && (
+              <div className="absolute -top-3 -right-0.5 w-5 h-5 rounded-full bg-cartNumBg flex justify-center items-center">
+                <p className="text-xs text-white font-semibold">{cartItems.length}</p>
+              </div>
+            )}
           </div>
 
           <div className="relative">
@@ -110,9 +112,11 @@ function Header() {
         <div className="relative flex justify-center items-center" onClick={showCart}>
           {/* shopping cart added */}
           <MdAddShoppingCart className="text-textColor text-2xl ml-8 cursor-pointer" />
-          <div className="absolute -top-3 -right-0.5 w-5 h-5 rounded-full bg-cartNumBg flex justify-center items-center">
-            <p className="text-xs text-white font-semibold">2</p>
-          </div>
+          {cartItems && cartItems.length > 0 && (
+            <div className="absolute -top-3 -right-0.5 w-5 h-5 rounded-full bg-cartNumBg flex justify-center items-center">
+              <p className="text-xs text-white font-semibold">{cartItems.length}</p>
+            </div>
+          )}
         </div>
 
         <Link to={"/"} className="flex items-center gap-2">
