@@ -11,7 +11,7 @@ import { app } from "../firebase.config";
 import { validateUserJWTToken } from "../api";
 import { useNavigate } from "react-router";
 
-const LoginContainer = () => {
+const LoginContainer = ({ login }) => {
   const [userEmail, setUserEmail] = useState("");
   const [isSignUp, setIsSignUp] = useState(false);
 
@@ -139,7 +139,7 @@ const LoginContainer = () => {
           <p className="text-white">OR</p>
           <div className="w-24 h-[1px] rounded-md bg-white"></div>
         </div>
-        <motion.div whileTap={{ scale: 0.75 }} className="flex items-center justify-center px-20 py-2 bg-lightOverlay backdrop-blur-md cursor-pointer rounded-3xl gap-4" onClick={loginWithGoogle}>
+        <motion.div whileTap={{ scale: 0.75 }} className="flex items-center justify-center px-20 py-2 bg-lightOverlay backdrop-blur-md cursor-pointer rounded-3xl gap-4" onClick={login}>
           <FcGoogle className="text-3xl" />
           <p className="capitalize text-base text-headingColor">SignIn with Google</p>
         </motion.div>
