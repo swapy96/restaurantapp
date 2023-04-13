@@ -4,11 +4,36 @@ import { Header, MainContainer, CreateContainer, LoginContainer } from "./compon
 import { AnimatePresence } from "framer-motion";
 import { useStateValue } from "./context/StateProvider";
 import { getAllFoodItems } from "./utils/firebaseFunctions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { actionType } from "./context/reducer";
+import { useNavigate } from "react-router";
+
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { app } from "./firebase.config";
 
 function App() {
-  const [{}, dispatch] = useStateValue();
+  const navigate = useNavigate();
+  const provider = new GoogleAuthProvider();
+  const auth = getAuth(app);
+  const [{ user }, dispatch] = useStateValue();
+  const [isMenu, setIsMenu] = useState(false);
+
+  const login = async () => {
+    if (!user) {
+      const {
+        user: { refreshToken, providerData },
+      } = await signInWithPopup(auth, provider);
+      dispatch({
+        type: actionType.SET_USER,
+        user: providerData[0],
+      });
+      localStorage.setItem("user", JSON.stringify(providerData[0]));
+    } else {
+      setIsMenu(!isMenu);
+    }
+    navigate("/");
+  };
+
   const fetchData = async () => {
     await getAllFoodItems().then((data) => {
       // console.log(data);
@@ -29,7 +54,7 @@ function App() {
           <Routes>
             <Route path="/*" element={<MainContainer />} />
             <Route path="/add" element={<CreateContainer />} />
-            <Route path="/Login" element={<LoginContainer />} />
+            <Route path="/Login" element={<LoginContainer login={login} />} />
           </Routes>
         </main>
       </div>
