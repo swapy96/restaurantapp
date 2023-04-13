@@ -12,8 +12,10 @@ import Avatar from "../img/avatar.png";
 import { Link } from "react-router-dom";
 import { useStateValue } from "../context/StateProvider";
 import { actionType } from "../context/reducer";
+import { useNavigate } from "react-router";
 
 function Header() {
+  const navigate = useNavigate();
   const provider = new GoogleAuthProvider();
   const auth = getAuth(app);
   const [{ user, cartShow, cartItems }, dispatch] = useStateValue();
@@ -33,6 +35,15 @@ function Header() {
       setIsMenu(!isMenu);
     }
   };
+
+  const dropdown = async () => {
+    if (!user) {
+      navigate("/login");
+    } else {
+      setIsMenu(!isMenu);
+    }
+  };
+
   const logout = () => {
     setIsMenu(false);
     localStorage.clear();
@@ -73,7 +84,7 @@ function Header() {
               About Us
             </li>
             <Link to={"/login"}>
-              <li className="m-2 p-2 rounded-md shadow-md flex items-center justify-center bg-gray-200 gap-3 cursor-pointer hover:bg-gray-300 transition-all duration-100 ease-in-out text-textColor text-base" onClick={login}>
+              <li className="m-2 p-2 rounded-md shadow-md flex items-center justify-center bg-gray-200 gap-3 cursor-pointer hover:bg-gray-300 transition-all duration-100 ease-in-out text-textColor text-base">
                 Login <MdLogout />
               </li>
             </Link>
@@ -90,8 +101,8 @@ function Header() {
           </div>
 
           <div className="relative">
-            <motion.img whileTap={{ scale: 0.8 }} src={user ? user?.photoURL : Avatar} alt="Avatar" className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl cursor-pointer rounded-full" onClick={login} />
-
+            <motion.img whileTap={{ scale: 0.8 }} src={user ? user?.photoURL : Avatar} alt="Avatar" className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl cursor-pointer rounded-full" onClick={dropdown} />
+            {/*  onClick={login}*/}
             {isMenu && (
               <motion.div initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.6 }} className="w-40 bg-gray-50 shadow-xl rounded-lg flex flex-col absolute top-12 right-0">
                 {user && user.email === "s.swapnil80@gmail.com" && (
