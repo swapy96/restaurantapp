@@ -2,6 +2,7 @@ import React from "react";
 import Delivery from "../img/delivery.png";
 import HeroBg from "../img/heroBg.png";
 import { heroData } from "../utils/data";
+import { Link } from "react-router-dom";
 
 const HomeContainer = () => {
   return (
@@ -21,10 +22,13 @@ const HomeContainer = () => {
         <p className="text-[2.5rem] lg:text-[4.5rem] font-bold tracking-wide text-headingColor">
           The Fastest Delivery in <span className="text-orange-600 text-[3rem] lg:text-[5rem]">Vancouver!</span>
         </p>
-        <p className="text-base text-textColor text-center md:text-left md:w-[80%]">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit pariatur amet molestias nemo sed error similique architecto dolorum quaerat optio. Odio id nisi distinctio placeat repellendus. Adipisci fuga illo tenetur.</p>
-        <button type="button" className="bg-gradient-to-br from-orange-400 to-orange-500 w-full md:w-auto px-4 py-2 rounded-lg hover:shadow-lg transition-all ease-in-out">
-          Order Now!
-        </button>
+        <p className="text-base text-textColor text-center md:text-left md:w-[80%]">"Savor the taste of succulent chicken dishes with a tempting 20% off at our restaurant. Book now and treat yourself to a delicious meal that will leave you craving for more!"</p>
+        <Link to={"/login"}>
+          <button type="button" className="bg-gradient-to-br from-orange-400 to-orange-500 w-full md:w-auto px-4 py-2 rounded-lg hover:shadow-lg transition-all ease-in-out">
+            Sign UP Now!
+          </button>
+        </Link>
+        <p className="text-teal-500 text-xl text-center">Don't miss out on our irresistible SigningUp offer - a 35% discount on first 2 orders for a limited time only!</p>
       </div>
 
       {/* right side */}
