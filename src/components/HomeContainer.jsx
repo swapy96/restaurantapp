@@ -23,8 +23,8 @@ const HomeContainer = () => {
           The Fastest Delivery in <span className="text-orange-600 text-[3rem] lg:text-[5rem]">Vancouver!</span>
         </p>
         <p className="text-base text-textColor text-center md:text-left md:w-[80%]">"Savor the taste of succulent chicken dishes with a tempting 20% off at our restaurant. Book now and treat yourself to a delicious meal that will leave you craving for more!"</p>
-        <Link to={"/login"}>
-          <button type="button" className="bg-gradient-to-br from-orange-400 to-orange-500 w-full md:w-auto px-4 py-2 rounded-lg hover:shadow-lg transition-all ease-in-out">
+        <Link className="w-full flex justify-center" to={"/login"}>
+          <button type="button" className="w-full bg-gradient-to-br from-orange-400 to-orange-500 md:w-auto px-4 py-2 rounded-lg hover:shadow-lg transition-all ease-in-out">
             Sign UP Now!
           </button>
         </Link>
