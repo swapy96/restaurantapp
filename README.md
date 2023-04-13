@@ -8,6 +8,40 @@ In the project directory, you can run:
 
 ### `npm start`
 
+********\*\*********\*\*********\*\*********README********\*\*********\*\*\*********\*\*********
+Restaurant Food Ordering Webapp
+This is a restaurant food ordering webapp built with React for frontend development, Tailwind CSS for styling the components, and Firebase for storage, database, and authentication. This app allows users to browse through a menu, place an order, and Cart shows items adde to cart and total amount which need to pay order.
+
+Installation
+To install this app, follow these steps:
+
+Clone this repository to your local machine.
+Install the dependencies by running npm install in your terminal.
+Create a Firebase project and configure it to use Firestore database, storage, and authentication.
+Copy the Firebase configuration settings into a .env file at the root of the project.
+Run the app with npm start.
+Usage
+To use this app, follow these steps:
+
+Navigate to the home page of the app.
+Browse through the menu items and select the items you want to order.
+Review your order and make any changes if needed.
+Place your order and wait for the confirmation.
+Track the status of your order from the Orders page.
+Dependencies
+This app uses the following dependencies:
+
+axios - for making HTTP requests
+firebase - for storage, database, and authentication
+framer-motion - for animations
+react - for building the UI components
+react-dom - for rendering the components
+react-icons - for using icons
+react-router-dom - for routing
+tailwind-scrollbar - for customizing scrollbars
+tailwindcss - for styling the components
+********\*\*********\*\*********\*\*********README********\*\*********\*\*\*********\*\*********
+
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
@@ -68,4 +102,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-"# restaurantapp" 
+"# restaurantapp"
