@@ -7,7 +7,7 @@ import { useState } from "react";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { app } from "../firebase.config";
 
-import Logo from "../img/logo.png";
+import Logo from "../img/restlogo.png";
 import Avatar from "../img/avatar.png";
 import { Link } from "react-router-dom";
 import { useStateValue } from "../context/StateProvider";
@@ -55,15 +55,17 @@ function Header() {
       {/* Desktop and tab screen */}
       <div className="hidden md:flex w-full h-full items-center justify-between">
         <Link to={"/"} className="flex items-center gap-2">
-          <img src={Logo} className="w-8 object-cover" alt="Logo" />
+          <img src={Logo} className="w-16 object-cover" alt="Logo" />
           <p className="text-headingColor text-xl font-bold">Vancouver</p>
         </Link>
 
         <div className="flex items-center gap-8">
           <motion.ul initial={{ opacity: 0, x: 200 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 200 }} className="flex items-center gap-24">
-            <li className="text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer" onClick={() => setIsMenu(false)}>
-              Home
-            </li>
+            <Link to={"/"}>
+              <li className="text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer" onClick={() => setIsMenu(false)}>
+                Home
+              </li>
+            </Link>
             <li className="text-base text-textColor hover:text-headingColor duration-100 transition-all ease-in-out cursor-pointer" onClick={() => setIsMenu(false)}>
               Menu
             </li>
